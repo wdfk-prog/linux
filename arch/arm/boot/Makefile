@@ -58,7 +58,8 @@ $(obj)/compressed/vmlinux: $(obj)/Image FORCE
 
 $(obj)/zImage:	$(obj)/compressed/vmlinux FORCE
 	$(call if_changed,objcopy)
-
+	@cp $(obj)/zImage $(obj)/../../../linux
+	@cd $(obj)/../../../linux;mkimage -f APT_Pi_Krl.its APT_Pi_Krl.itb.bin
 endif
 
 ifneq ($(LOADADDR),)
