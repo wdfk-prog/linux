@@ -5,7 +5,7 @@
  * Copyright 2009 Benjamin Herrenschmidt, IBM Corp
  * benh@kernel.crashing.org
  */
-
+#define DEBUG
 #define pr_fmt(fmt)	"OF: fdt: " fmt
 
 #include <linux/crash_dump.h>
