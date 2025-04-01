@@ -751,6 +751,7 @@ static int __init do_early_param(char *param, char *val,
 
 	for (p = __setup_start; p < __setup_end; p++) {
 		if (p->early && parameq(param, p->str)) {
+			pr_info("Early parameter %s=%s\n", p->str, val);
 			if (p->setup_func(val) != 0)
 				pr_warn("Malformed early option '%s'\n", param);
 		}
