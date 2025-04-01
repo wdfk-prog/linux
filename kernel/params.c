@@ -3,6 +3,7 @@
  * Helpers for initial module or kernel cmdline parsing
  * Copyright (C) 2001 Rusty Russell.
  */
+#define DEBUG
 #include <linux/ctype.h>
 #include <linux/device.h>
 #include <linux/err.h>
@@ -15,7 +16,7 @@
 #include <linux/security.h>
 #include <linux/slab.h>
 #include <linux/string.h>
-
+#define DEBUG
 #ifdef CONFIG_SYSFS
 /* Protects all built-in parameters, modules use their own param_lock */
 static DEFINE_MUTEX(param_lock);
