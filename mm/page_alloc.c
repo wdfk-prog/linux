@@ -14,7 +14,7 @@
  *  Per cpu hot/cold page lists, bulk allocation, Martin J. Bligh, Sept 2002
  *          (lots of bits borrowed from Ingo Molnar & Andrew Morton)
  */
-
+#define DEBUG
 #include <linux/stddef.h>
 #include <linux/mm.h>
 #include <linux/highmem.h>
