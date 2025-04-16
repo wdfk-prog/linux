@@ -6,6 +6,7 @@
  * Author Mel Gorman <mel@csn.ul.ie>
  *
  */
+#define DEBUG
 #include <linux/kernel.h>
 #include <linux/init.h>
 #include <linux/kobject.h>
