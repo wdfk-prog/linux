@@ -1705,6 +1705,7 @@ void * __init memblock_alloc_try_nid(
 void *__init __memblock_alloc_or_panic(phys_addr_t size, phys_addr_t align,
 				       const char *func)
 {
+	memblock_dbg("%s: from= %s\n", __func__, func);
 	void *addr = memblock_alloc(size, align);
 
 	if (unlikely(!addr))
