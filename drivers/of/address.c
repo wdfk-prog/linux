@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0
+#define DEBUG
 #define pr_fmt(fmt)	"OF: " fmt
 
 #include <linux/device.h>

@@ -5,7 +5,7 @@
  *
  * Standard functionality for the common clock API.  See Documentation/driver-api/clk.rst
  */
-
+#define DEBUG
 #include <linux/clk.h>
 #include <linux/clk-provider.h>
 #include <linux/clk/clk-conf.h>
@@ -5271,6 +5271,8 @@ of_clk_get_hw_from_clkspec(struct of_phandle_args *clkspec)
 
 	mutex_lock(&of_clk_mutex);
 	list_for_each_entry(provider, &of_clk_providers, link) {
+		pr_debug("Checking provider %pOF for %pOF\n",
+			 provider->node, clkspec->np);
 		if (provider->node == clkspec->np) {
 			hw = __of_clk_get_hw_from_provider(provider, clkspec);
 			if (!IS_ERR(hw))

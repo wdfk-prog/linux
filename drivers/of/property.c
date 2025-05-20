@@ -18,7 +18,7 @@
  *  Reconsolidated from arch/x/kernel/prom.c by Stephen Rothwell and
  *  Grant Likely.
  */
-
+#define DEBUG
 #define pr_fmt(fmt)	"OF: " fmt
 
 #include <linux/of.h>
