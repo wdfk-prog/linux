@@ -1928,6 +1928,8 @@ static unsigned long clk_recalc(struct clk_core *core,
 
 	if (core->ops->recalc_rate && !clk_pm_runtime_get(core)) {
 		rate = core->ops->recalc_rate(core->hw, parent_rate);
+		pr_debug("%s: %s: recalc_rate = %ld parent_rate = %ld\n", core->name, (core->parent->name ?
+				core->parent->name : "NULL"), rate, parent_rate);
 		clk_pm_runtime_put(core);
 	}
 	return rate;
@@ -2818,7 +2820,7 @@ static struct clk_core *__clk_init_parent(struct clk_core *core)
 
 	if (core->num_parents > 1 && core->ops->get_parent)
 		index = core->ops->get_parent(core->hw);
-
+	pr_info("%s: get_parent = %d\n", core->name, index);
 	return clk_core_get_parent_by_index(core, index);
 }
 
@@ -4049,6 +4051,8 @@ static int __clk_core_init(struct clk_core *core)
 	else
 		rate = 0;
 	core->rate = core->req_rate = rate;
+	pr_debug("%s: %s rate %lu\n", core->name, parent ? parent->name : "none",
+			core->rate);
 
 	/*
 	 * Enable CLK_IS_CRITICAL clocks so newly added critical clocks
