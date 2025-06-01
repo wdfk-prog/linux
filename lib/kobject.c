@@ -9,7 +9,7 @@
  * Please see the file Documentation/core-api/kobject.rst for critical information
  * about using the kobject interface.
  */
-
+#define DEBUG
 #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
 
 #include <linux/kobject.h>
