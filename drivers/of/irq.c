@@ -13,7 +13,6 @@
  * device tree to actual irq numbers on an interrupt controller
  * driver.
  */
-#define DEBUG
 #define pr_fmt(fmt)	"OF: " fmt
 
 #include <linux/cleanup.h>
