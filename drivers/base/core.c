@@ -7,7 +7,7 @@
  * Copyright (c) 2006 Greg Kroah-Hartman <gregkh@suse.de>
  * Copyright (c) 2006 Novell, Inc.
  */
-
+#define DEBUG
 #include <linux/acpi.h>
 #include <linux/blkdev.h>
 #include <linux/cleanup.h>
