@@ -8,7 +8,7 @@
  * Copyright (c) 2007 Novell Inc.
  * Copyright (c) 2023 Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  */
-
+#define DEBUG
 #include <linux/async.h>
 #include <linux/device/bus.h>
 #include <linux/device.h>
