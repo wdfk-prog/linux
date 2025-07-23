@@ -6,7 +6,7 @@
  * Author: Arjan van de Ven <arjan@linux.intel.com>
  */
 
-
+#define DEBUG
 /*
 
 Goals and Theory of Operation
