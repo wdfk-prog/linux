@@ -15,7 +15,7 @@
  * Copyright (c) 2007-2009 Greg Kroah-Hartman <gregkh@suse.de>
  * Copyright (c) 2007-2009 Novell Inc.
  */
-
+#define DEBUG
 #include <linux/debugfs.h>
 #include <linux/device.h>
 #include <linux/delay.h>
