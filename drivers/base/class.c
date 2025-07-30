@@ -7,7 +7,7 @@
  * Copyright (c) 2003-2004 Greg Kroah-Hartman
  * Copyright (c) 2003-2004 IBM Corp.
  */
-
+#define DEBUG
 #include <linux/device/class.h>
 #include <linux/device.h>
 #include <linux/module.h>
