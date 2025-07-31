@@ -4,6 +4,7 @@
  *
  * Copyright 2013 Philipp Zabel, Pengutronix
  */
+#include "linux/printk.h"
 #include <linux/atomic.h>
 #include <linux/cleanup.h>
 #include <linux/device.h>
@@ -122,6 +123,7 @@ static int of_reset_simple_xlate(struct reset_controller_dev *rcdev,
  */
 int reset_controller_register(struct reset_controller_dev *rcdev)
 {
+	printk("Reset controller %s registered\n", rcdev_name(rcdev));
 	if (rcdev->of_node && rcdev->of_args)
 		return -EINVAL;
 
