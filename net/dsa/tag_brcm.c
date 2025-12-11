@@ -92,6 +92,7 @@ static struct sk_buff *brcm_tag_xmit_ll(struct sk_buff *skb,
 {
 	struct dsa_port *dp = dsa_user_to_port(dev);
 	u16 queue = skb_get_queue_mapping(skb);
+	u16 port_mask;
 	u8 *brcm_tag;
 
 	/* The Ethernet switch we are interfaced with needs packets to be at
@@ -119,10 +120,9 @@ static struct sk_buff *brcm_tag_xmit_ll(struct sk_buff *skb,
 	brcm_tag[0] = (1 << BRCM_OPCODE_SHIFT) |
 		       ((queue & BRCM_IG_TC_MASK) << BRCM_IG_TC_SHIFT);
 	brcm_tag[1] = 0;
-	brcm_tag[2] = 0;
-	if (dp->index == 8)
-		brcm_tag[2] = BRCM_IG_DSTMAP2_MASK;
-	brcm_tag[3] = (1 << dp->index) & BRCM_IG_DSTMAP1_MASK;
+	port_mask = dsa_xmit_port_mask(skb, dev);
+	brcm_tag[2] = (port_mask >> 8) & BRCM_IG_DSTMAP2_MASK;
+	brcm_tag[3] = port_mask & BRCM_IG_DSTMAP1_MASK;
 
 	/* Now tell the conduit network device about the desired output queue
 	 * as well
@@ -176,7 +176,8 @@ static struct sk_buff *brcm_tag_rcv_ll(struct sk_buff *skb,
 	/* Remove Broadcom tag and update checksum */
 	skb_pull_rcsum(skb, BRCM_TAG_LEN);
 
-	dsa_default_offload_fwd_mark(skb);
+	if (likely(!is_link_local_ether_addr(eth_hdr(skb)->h_dest)))
+		dsa_default_offload_fwd_mark(skb);
 
 	return skb;
 }
@@ -250,7 +251,8 @@ static struct sk_buff *brcm_leg_tag_rcv(struct sk_buff *skb,
 	/* Remove Broadcom tag and update checksum */
 	skb_pull_rcsum(skb, len);
 
-	dsa_default_offload_fwd_mark(skb);
+	if (likely(!is_link_local_ether_addr(eth_hdr(skb)->h_dest)))
+		dsa_default_offload_fwd_mark(skb);
 
 	dsa_strip_etype_header(skb, len);
 
