@@ -1007,7 +1007,7 @@ put_suspend:
 /**
  * uaudio_transfer_buffer_setup() - fetch and populate xfer buffer params
  * @subs: usb substream
- * @xfer_buf: xfer buf to be allocated
+ * @xfer_buf_cpu: xfer buf to be allocated
  * @xfer_buf_len: size of allocation
  * @mem_info: QMI response info
  *
@@ -1433,8 +1433,7 @@ static int prepare_qmi_response(struct snd_usb_substream *subs,
 		uadev[card_num].num_intf =
 			subs->dev->config->desc.bNumInterfaces;
 		uadev[card_num].info = kzalloc_objs(struct intf_info,
-						    uadev[card_num].num_intf,
-						    GFP_KERNEL);
+						    uadev[card_num].num_intf);
 		if (!uadev[card_num].info) {
 			ret = -ENOMEM;
 			goto unmap_er;

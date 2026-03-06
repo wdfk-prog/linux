@@ -374,7 +374,7 @@ static int init_scrub_stripe(struct btrfs_fs_info *fs_info,
 		goto error;
 
 	stripe->sectors = kzalloc_objs(struct scrub_sector_verification,
-				       stripe->nr_sectors, GFP_KERNEL);
+				       stripe->nr_sectors);
 	if (!stripe->sectors)
 		goto error;
 
@@ -743,7 +743,7 @@ static void scrub_verify_one_metadata(struct scrub_stripe *stripe, int sector_nr
 		btrfs_warn_rl(fs_info,
 	      "scrub: tree block %llu mirror %u has bad fsid, has %pU want %pU",
 			      logical, stripe->mirror_num,
-			      header->fsid, fs_info->fs_devices->fsid);
+			      header->fsid, fs_info->fs_devices->metadata_uuid);
 		return;
 	}
 	if (memcmp(header->chunk_tree_uuid, fs_info->chunk_tree_uuid,
@@ -2474,8 +2474,7 @@ static noinline_for_stack int scrub_stripe(struct scrub_ctx *sctx,
 		ASSERT(sctx->raid56_data_stripes == NULL);
 
 		sctx->raid56_data_stripes = kzalloc_objs(struct scrub_stripe,
-							 nr_data_stripes(map),
-							 GFP_KERNEL);
+							 nr_data_stripes(map));
 		if (!sctx->raid56_data_stripes) {
 			ret = -ENOMEM;
 			goto out;

@@ -3148,7 +3148,7 @@ struct wireless_dev *mwifiex_add_virtual_intf(struct wiphy *wiphy,
 	SET_NETDEV_DEV(dev, adapter->dev);
 
 	ret = dev_alloc_name(dev, name);
-	if (ret)
+	if (ret < 0)
 		goto err_alloc_name;
 
 	priv->dfs_cac_workqueue = alloc_workqueue("MWIFIEX_DFS_CAC-%s",
@@ -4678,8 +4678,7 @@ int mwifiex_init_channel_scan_gap(struct mwifiex_adapter *adapter)
 	 */
 	adapter->num_in_chan_stats = 2 * (n_channels_bg + n_channels_a);
 	adapter->chan_stats = kzalloc_objs(*adapter->chan_stats,
-					   adapter->num_in_chan_stats,
-					   GFP_KERNEL);
+					   adapter->num_in_chan_stats);
 
 	if (!adapter->chan_stats)
 		return -ENOMEM;

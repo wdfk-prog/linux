@@ -360,8 +360,7 @@ int idpf_intr_req(struct idpf_adapter *adapter)
 		}
 
 		adapter->rdma_msix_entries = kzalloc_objs(struct msix_entry,
-							  num_rdma_vecs,
-							  GFP_KERNEL);
+							  num_rdma_vecs);
 		if (!adapter->rdma_msix_entries) {
 			err = -ENOMEM;
 			goto free_irq;
@@ -1319,6 +1318,7 @@ static struct idpf_vport *idpf_vport_alloc(struct idpf_adapter *adapter,
 
 free_rss_key:
 	kfree(rss_data->rss_key);
+	rss_data->rss_key = NULL;
 free_qreg_chunks:
 	idpf_vport_deinit_queue_reg_chunks(adapter->vport_config[idx]);
 free_vector_idxs:

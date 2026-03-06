@@ -1013,8 +1013,7 @@ int libie_fwlog_init(struct libie_fwlog *fwlog, struct libie_fwlog_api *api)
 			return status;
 
 		fwlog->ring.rings = kzalloc_objs(*fwlog->ring.rings,
-						 LIBIE_FWLOG_RING_SIZE_DFLT,
-						 GFP_KERNEL);
+						 LIBIE_FWLOG_RING_SIZE_DFLT);
 		if (!fwlog->ring.rings) {
 			dev_warn(&fwlog->pdev->dev, "Unable to allocate memory for FW log rings\n");
 			return -ENOMEM;
@@ -1049,6 +1048,10 @@ EXPORT_SYMBOL_GPL(libie_fwlog_init);
 void libie_fwlog_deinit(struct libie_fwlog *fwlog)
 {
 	int status;
+
+	/* if FW logging isn't supported it means no configuration was done */
+	if (!libie_fwlog_supported(fwlog))
+		return;
 
 	/* make sure FW logging is disabled to not put the FW in a weird state
 	 * for the next driver load

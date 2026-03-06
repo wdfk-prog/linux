@@ -1234,7 +1234,7 @@ int bpf_obj_name_cpy(char *dst, const char *src, unsigned int size)
 }
 EXPORT_SYMBOL_GPL(bpf_obj_name_cpy);
 
-int map_check_no_btf(const struct bpf_map *map,
+int map_check_no_btf(struct bpf_map *map,
 		     const struct btf *btf,
 		     const struct btf_type *key_type,
 		     const struct btf_type *value_type)
@@ -6077,7 +6077,7 @@ static int bpf_prog_bind_map(union bpf_attr *attr)
 		}
 
 	used_maps_new = kmalloc_objs(used_maps_new[0],
-				     prog->aux->used_map_cnt + 1, GFP_KERNEL);
+				     prog->aux->used_map_cnt + 1);
 	if (!used_maps_new) {
 		ret = -ENOMEM;
 		goto out_unlock;
